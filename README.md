@@ -26,6 +26,8 @@ Please execute the following command to install and configure our environment.
 
 ```Powershell
 clone https://github.com/DaRL-LibSignal/OpenTI.git
+cd OpenTI
+pip install -r requirements.txt
 
 ```
 
@@ -127,7 +129,7 @@ pip3 install torch torchvision torchaudio --extra-index-url https://download.pyt
 If you install all the requirments above, you can run Open-TI now.
 
 ```
-cd Open-TI
+cd OpenTI
 python3 executor.py
 ```
 
