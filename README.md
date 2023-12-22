@@ -21,8 +21,8 @@ Open-TI is a revolutionary traffic intelligence model that bridges the industry-
 Open-TI does not require installation, you should just clone the code and run locally.
 
 ```Powershell
-clone https://github.com/DaRL-LibSignal/TALM.git
-cd TALM
+clone https://github.com/DaRL-LibSignal/OpenTI.git
+cd OpenTI
 ```
 
 
