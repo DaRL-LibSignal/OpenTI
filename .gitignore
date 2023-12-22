@@ -1,0 +1,10 @@
+./support_libsignal/*
+./pivotalAgent/Data/*
+./pivotalAgent/fig/*
+*.git
+*.DS_Store
+*Data
+*log
+*.png
+
+# find .-size+50M | sed 's|^\./||' >> .gitignore
