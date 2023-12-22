@@ -86,12 +86,13 @@ import traci
 ### LibSignal Environment
 <br />
 
-To install SUMO environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
+To install LibSignal environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
 
 ```
 git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
-pip install .
+pip install -r requirements.txt
+pip3 install torch
 ```
 
 
