@@ -4,6 +4,7 @@
 
 Open-TI is a revolutionary traffic intelligence model that bridges the industry-academic gap in intelligent transportation. It leverages large language models to execute complex traffic analysis tasks, making it the first to seamlessly integrate external packages based on conversations. Beyond analysis, Open-TI can train traffic signal control policies, explore demand optimizations, and communicate with control agents like ChatZero for efficient task execution. With a formal structure and open-ended design, Open-TI invites community-driven enhancements, emphasizing its pivotal role in advancing intelligent transportation systems.
 
+
 ## The overview of the Open-TI functionalities
 ![overview](./assets/Overview.png)
 
@@ -18,11 +19,13 @@ Open-TI is a revolutionary traffic intelligence model that bridges the industry-
 
 ## Source
 
-Open-TI does not require installation, you should just clone the code and run locally.
+Our code is based on Python version 3.9 and Pytorch version 1.11.0.
+Open-TI provides installation from the source code. 
+Please execute the following command to install and configure our environment.
+
 
 ```Powershell
 clone https://github.com/DaRL-LibSignal/OpenTI.git
-cd OpenTI
 ```
 
 
@@ -86,31 +89,29 @@ import traci
 ### LibSignal Environment
 <br />
 
-To install SUMO environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
+To install LibSignal environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
 
 ```
 git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
-pip install .
-```
+pip install -r requirements.txt
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
+```
 
 <br>
 
-
-## Requirement
+## Start Running
 <br />
 
-Our code is based on Python version 3.9 and Pytorch version 1.11.0. For example, if your CUDA version is 11.3 you can follow the instructions on [PyTorch](https://pytorch.org/get-started/locally/)
+If you install all the requirments below, you can run Open-TI now.
 
 ```
-pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
-
-pip install -r requirements.txt
+cd Open-TI
+python3 executor.py
 ```
 
-
-
+<br>
 
 ## Citation
 
@@ -124,7 +125,3 @@ pip install -r requirements.txt
       primaryClass={cs.CL}
 }
 ```
-
-
-
-
