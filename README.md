@@ -92,7 +92,8 @@ To install LibSignal environment, please follow the instructions on [LibSignal D
 git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
 pip install -r requirements.txt
-pip3 install torch
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
 ```
 
 
@@ -103,12 +104,6 @@ pip3 install torch
 <br />
 
 Our code is based on Python version 3.9 and Pytorch version 1.11.0. For example, if your CUDA version is 11.3 you can follow the instructions on [PyTorch](https://pytorch.org/get-started/locally/)
-
-```
-pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
-
-pip install -r requirements.txt
-```
 
 
 
