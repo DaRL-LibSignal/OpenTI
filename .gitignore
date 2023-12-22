@@ -5,6 +5,6 @@
 *.DS_Store
 *Data
 *log
-*.png
+# *.png
 
 # find .-size+50M | sed 's|^\./||' >> .gitignore
