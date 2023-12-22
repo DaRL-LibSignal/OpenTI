@@ -1,0 +1,9 @@
+Config_path: ./Configs/path.yaml
+LibSignal:
+    root_path: ./LibSignal/
+    log_example: ./LibSignal/data/output_data/tsc/cityflow_dqn/cityflow1x1/0/logger/2023_10_10-13_00_07_DTL.log
+    tsc_root: ./LibSignal/data/output_data/tsc/
+Demand:
+    example: ./fig/demand.png
+DLSim:
+    work_dic: "./AugmentUtils/simulation/simulate"
