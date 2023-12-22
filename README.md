@@ -4,6 +4,7 @@
 
 Open-TI is a revolutionary traffic intelligence model that bridges the industry-academic gap in intelligent transportation. It leverages large language models to execute complex traffic analysis tasks, making it the first to seamlessly integrate external packages based on conversations. Beyond analysis, Open-TI can train traffic signal control policies, explore demand optimizations, and communicate with control agents like ChatZero for efficient task execution. With a formal structure and open-ended design, Open-TI invites community-driven enhancements, emphasizing its pivotal role in advancing intelligent transportation systems.
 
+
 ## The overview of the Open-TI functionalities
 ![overview](./assets/Overview.png)
 
@@ -18,12 +19,12 @@ Open-TI is a revolutionary traffic intelligence model that bridges the industry-
 
 ## Source
 
+Our code is based on Python version 3.9 and Pytorch version 1.11.0.
 Open-TI provides installation from the source code. Please execute the following command to install and configure our environment.
+
 
 ```Powershell
 clone https://github.com/DaRL-LibSignal/OpenTI.git
-cd OpenTI
-python3 executor.py
 ```
 
 
@@ -97,17 +98,7 @@ pip3 install torch torchvision torchaudio --extra-index-url https://download.pyt
 
 ```
 
-
 <br>
-
-
-## Requirement
-<br />
-
-Our code is based on Python version 3.9 and Pytorch version 1.11.0. For example, if your CUDA version is 11.3 you can follow the instructions on [PyTorch](https://pytorch.org/get-started/locally/)
-
-
-
 
 ## Citation
 
@@ -121,7 +112,3 @@ Our code is based on Python version 3.9 and Pytorch version 1.11.0. For example,
       primaryClass={cs.CL}
 }
 ```
-
-
-
-
