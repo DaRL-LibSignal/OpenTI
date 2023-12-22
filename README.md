@@ -20,7 +20,8 @@ Open-TI is a revolutionary traffic intelligence model that bridges the industry-
 ## Source
 
 Our code is based on Python version 3.9 and Pytorch version 1.11.0.
-Open-TI provides installation from the source code. Please execute the following command to install and configure our environment.
+Open-TI provides installation from the source code. 
+Please execute the following command to install and configure our environment.
 
 
 ```Powershell
