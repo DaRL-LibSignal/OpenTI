@@ -101,6 +101,18 @@ pip3 install torch torchvision torchaudio --extra-index-url https://download.pyt
 
 <br>
 
+## Start Running
+<br />
+
+If you install all the requirments below, you can run Open-TI now.
+
+```
+cd Open-TI
+python3 executor.py
+```
+
+<br>
+
 ## Citation
 
 ```
