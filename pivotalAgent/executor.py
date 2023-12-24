@@ -25,7 +25,7 @@ openai.api_requestor.TIMEOUT_SECS = 30
 # ------------------------------------------------------------------------------
 # --Initialization
 
-OPENAI_CONFIG = yaml.load(open('./pivotalAgent/Configs/config.yaml'), Loader=yaml.FullLoader)
+OPENAI_CONFIG = yaml.load(open('./Configs/config.yaml'), Loader=yaml.FullLoader)
 if OPENAI_CONFIG['OPENAI_API_TYPE'] == 'azure':
     os.environ["OPENAI_API_TYPE"] = OPENAI_CONFIG['OPENAI_API_TYPE']
     os.environ["OPENAI_API_VERSION"] = OPENAI_CONFIG['AZURE_API_VERSION']

@@ -1,3 +1,4 @@
 OPENAI_API_TYPE: 'openai' #'azure'  OR 'openai'
 # for 'openai'
-OPENAI_KEY: '' # your openai key
+OPENAI_KEY: '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' # your openai key
+

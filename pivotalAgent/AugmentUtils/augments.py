@@ -28,10 +28,18 @@ import matplotlib.pyplot as plt
 
 matplotlib.use('TkAgg')
 
-config_path = "./pivotalAgent/Configs/path.yaml"
+import os
+import yaml
 
+
+
+
+
+config_path = "./Configs/path.yaml"
+print(config_path)
 with open(config_path, 'r') as file:
     tsc_root = yaml.safe_load(file)["LibSignal"]["tsc_root"]
+    
 
 def func_prompt(name, description):
     def decorator(func):
@@ -312,8 +320,16 @@ def extract_filepath(s):
     match = re.search(r'data/.*\.log', s)
     return match.group(0) if match else None
 
+
 def update_episode_in_base_yaml(episode_value: str) -> None:
-    base_yaml_path = "./LibSignal/LibSignal/configs/tsc/base.yml"  # Replace with the actual path to your base.yml file
+    # Get the script path
+    script_path = os.path.abspath(__file__)
+    print("Script Path:", script_path)
+
+    # Construct the corrected relative path to base.yml
+    base_yaml_path = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(script_path))), "LibSignal/configs/tsc/base.yml"))
+    print("Base YAML Path:", base_yaml_path)
+
 
     with open(base_yaml_path, 'r') as file:
         data = yaml.safe_load(file)

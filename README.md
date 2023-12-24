@@ -28,9 +28,8 @@ Please execute the following command to install and configure our environment.
 clone https://github.com/DaRL-LibSignal/OpenTI.git
 cd OpenTI
 pip install -r requirements.txt
-
+sudo apt-get install python3-tk
 ```
-
 
 ## Configuration
 
@@ -66,6 +65,7 @@ pip install .
 ```
 To test configuration:
 ```
+python3
 import cityflow
 env = cityflow.Engine
 ```
@@ -77,7 +77,7 @@ env = cityflow.Engine
 To install SUMO environment, please follow the instructions on [SUMO Doc](https://epics-sumo.sourceforge.io/sumo-install.html#)
 
 ```
-sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+sudo apt-get install cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
 
 git clone --recursive https://github.com/eclipse/sumo
 
@@ -86,19 +86,29 @@ mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
 cmake ../..
 make -j$(nproc)
 ```
+If you cannot make the directory sumo/build/cmake-build, you could try the command below
+```
+cd sumo
+mkdir build
+cd build
+mkdir cmake-build
+cd cmake-build
+```
+
 To test installation:
 ```
-cd ~/DaRL/sumo/bin
+cd ~/sumo/bin
 ./sumo
 ```
 
 To add SUMO and traci model into the system PATH, execute the code below:
 ```
-export SUMO_HOME=~/DaRL/sumo
+export SUMO_HOME=~/sumo
 export PYTHONPATH="$SUMO_HOME/tools:$PYTHONPATH"
 ```
 To test configuration:
 ```
+python3
 import libsumo
 import traci
 ```
@@ -114,22 +124,21 @@ git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
 pip install -r requirements.txt
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+pip install cmake
+pip install lmdb
 
 ```
 
 <br>
 
-
-
-
-
 ## Start Running
 <br />
 
-If you install all the requirments above, you can run Open-TI now.
+If you install all the requirments below, you can run Open-TI now.
 
 ```
 cd OpenTI
+cd pivotalAgent
 python3 executor.py
 ```
 
