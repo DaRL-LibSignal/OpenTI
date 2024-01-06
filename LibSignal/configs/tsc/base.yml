@@ -1,0 +1,51 @@
+logger:
+  attention: false
+  data_dir: dataset/
+  log_dir: logger/
+  model_dir: model/
+  replay_dir: replay/
+  root_dir: data/output_data/
+  save_model: true
+  save_rate: 5
+model:
+  batch_size: 64
+  epsilon: 0.5
+  epsilon_decay: 0.99
+  epsilon_min: 0.05
+  gamma: 0.95
+  grad_clip: 5.0
+  graphic: false
+  learning_rate: 0.001
+  load_model: false
+  name: non-rl
+  one_hot: false
+  phase: false
+  test_model: true
+  train_model: false
+  vehicle_max: 1
+task:
+  description: use RL methods to optimize traffic signal control problems
+  task_name: tsc
+trainer:
+  action_interval: 10
+  buffer_size: 5000
+  episodes: 5
+  learning_start: 5000
+  ngpu: -1
+  steps: 3600
+  test_steps: 3600
+  test_when_train: true
+  thread: 4
+  update_model_rate: 1
+  update_target_rate: 10
+  yellow_length: 5
+world:
+  dir: data/
+  gui: false
+  interval: 1.0
+  no_warning: true
+  report_log_mode: normal
+  report_log_rate: 10
+  rlTrafficLight: true
+  saveReplay: true
+  seed: 0
