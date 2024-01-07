@@ -54,17 +54,7 @@ if not os.path.exists('./fig/'):
 
 
 # Define the external files to probe
-sumoCFGFile = './real-world-simulation-withTLS/xuancheng.sumocfg'
-sumoNetFile = './real-world-simulation-withTLS/xuancheng.net.xml'
-sumoRouFile = './real-world-simulation-withTLS/xuancheng.net.xml'
-sumoEdgeDataFile = './real-world-simulation-withTLS/edgedata.xml'
-sumoOriginalStateFile = './real-world-simulation-withTLS/originalstate.xml'
-sumoTempStateFile = './real-world-simulation-withTLS/tempstate.xml'
-sumoNewTLSFile = './real-world-simulation-withTLS/newTLS.add.xml'
 targetFilePath = './fig/'
-
-
-
 figfolder = "./Data/netfilter/output"
 download_path = "./Data/download/OSM/"
 
