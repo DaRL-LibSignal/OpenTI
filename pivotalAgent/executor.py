@@ -53,7 +53,7 @@ if not os.path.exists('./fig/'):
     os.mkdir('./fig/')
 
 
-# Define the external files to probe
+# Add Path Below:
 targetFilePath = './fig/'
 figfolder = "./Data/netfilter/output"
 download_path = "./Data/download/OSM/"
