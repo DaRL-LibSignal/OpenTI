@@ -7,3 +7,4 @@ Demand:
     example: ./fig/demand.png
 DLSim:
     work_dic: "./AugmentUtils/simulation/simulate"
+SUMO_PATH: "/home/local/ASURITE/longchao/Desktop/project/sumo" # your sumo path, x/x/x/sumo

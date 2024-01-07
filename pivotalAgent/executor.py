@@ -16,6 +16,7 @@ from AugmentUtils.augments import (
     simulateOnDLSim,
     visualizeDemand,
     log_analyzer,
+    oneClickSUMO,
 )
 
 import gradio as gr
@@ -77,6 +78,7 @@ toolModels = [
     simulateOnDLSim(demand_path),
     visualizeDemand(demand_path),
     log_analyzer(),
+    oneClickSUMO(),
 ]
 # ------------------------------------------------------------------------------
 # --EN Define prompts, hypnotize LLM, let LLM understand the work content
@@ -121,7 +123,9 @@ When people asking something else related to your well-being, just reply I'm goo
 14.[Description]: You are able to analyze the log files, and provide your own understanding on it. if user ask you to provide the analysis, he should pass a path file and you should take the path as the input.
 15.[Description]: You are allowed to respond long text as long as it is the output. 
 16.[Description]: If you can not find any appropriate tool for your task, think over again, at the last minute you can try to do it using your own ability and knowledge as a chat AI. 
-
+17.[Description]: If you are asked to run SUMO with one click run, you should understand that the user is considering using oneClickSUMOSimulation. This function helps to execute SUMO in the simplest way that user only need to provide the absolute path of the corresponding .osm data they want to simulate on. 
+   [Format Restriction]: You must try to extract the .osm data path, the path contains no quotation mark, just a string, first look for the user's description, If not found, consider from the memory of previous conversation. And pass to the corresponding target.
+   [Example]: If user said: Please run the simulation on SUMO (with one click) using map of "./map.osm", then you should remove quotation mark: "", and only take ./map.osm as action input. If user said: Please run the simulation on SUMO, you should try to find the path in memory, if you find it, just do as described, else, ask for human for .osm file path.
 [THINGS YOU CANNOT DO]
 You are forbidden to fabricate any tool names. 
 You are forbidden to fabricate any input parameters when calling tools!

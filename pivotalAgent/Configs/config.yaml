@@ -1,3 +1,4 @@
 OPENAI_API_TYPE: 'openai' #'azure'  OR 'openai'
 # for 'openai'
-OPENAI_KEY: '' # your openai key
+OPENAI_KEY: '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' # your openai key
+SUMO_PATH: "/home/local/ASURITE/longchao/Desktop/project/sumo" # your sumo path, x/x/x/sumo
