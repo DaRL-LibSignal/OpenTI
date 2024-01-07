@@ -67,11 +67,11 @@ class DialogWrapper:
         self.agent_chain = AgentExecutor.from_agent_and_tools(
             agent=agent, tools=tools,
             verbose=verbose, memory=self.agent_memory,
-            handle_parsing_errors="Use the TALM output directly as the final answer!"
+            handle_parsing_errors="Use the Open-TI output directly as the final answer!"
         )
 
     def dialogue(self, input: str):
-        print('TALM is thinking, one sec...')
+        print('Open-TI is thinking, one sec...')
         with get_openai_callback() as caller:
             # actually start a agent_chain to query:
             response = self.agent_chain.run(input=input, callbacks=[self.d_handler])

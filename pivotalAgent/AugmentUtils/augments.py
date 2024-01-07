@@ -620,3 +620,33 @@ class log_analyzer:
             return f"You have the content read now, please provide your own understanding and provide the explained result of it, the content is: "+ log_data
         except Exception as e:
             return "Your final answer should include this sentence without changing anything: The path you provided is not valid, please examine again or it is also acceptable to pass a absolute path, thank you!"
+        
+
+class oneClickSUMO:
+    def __init__(self) -> None:
+        self.pipline_path = "/pivotalAgent/AugmentUtils/one_click_SUMO/"
+    @func_prompt(name="oneClickSUMOSimulation", description="""
+    This is the tool used to execute one click run SUMO simulation, if you are asked to run sumo simulation with one click, please consider using this tool. Before using, please check for an osm file path.
+    The output will tell you whether you have finished this command successfully.
+    """)
+
+    def embody(self, target: str):
+        try:
+            osm_file_path = target
+            import os
+            current_path = os.getcwd()
+
+            print("target:")
+            print(target)
+            print("self.pipline_path")
+            print(self.pipline_path)
+            print("current path:")
+            print(current_path)
+
+            if osm_file_path == None: return "Your final answer should include this sentence without changing anything: You are expected to input your osm file path (absolute path) to run this simulation!"
+            subprocess.run(["python3", current_path+ self.pipline_path + "simulate_pipline.py", "-f", target], capture_output=True, text=True, cwd=current_path+ self.pipline_path)
+            return "Successfully executed SUMO simulation with random sampled demand information."
+        
+        except Exception as e:
+            return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
+        
