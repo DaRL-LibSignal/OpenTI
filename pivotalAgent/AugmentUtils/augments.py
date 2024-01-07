@@ -262,9 +262,6 @@ class showMap:
         target_map ="./Data/maps/target_map.png"
         
         return f"You have successfully find the map of: {target}. And your final answer should include this sentence without changing anything: The map area of interested {target} is: `{target_map}`, and dynamic version please check the link above:`{html_path}`."
-          
-
-
 
 class autoDownloadNetwork:
     def __init__(self, base_loc: str) -> None:
