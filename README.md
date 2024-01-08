@@ -117,10 +117,9 @@ import traci
 ### LibSignal Environment
 <br />
 
-To install LibSignal environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
+To install LibSignal environment, please follow the instructions
 
 ```
-git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
 pip install -r requirements.txt
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
