@@ -1,0 +1,13 @@
+base_root: 
+/Users/danielsmith/Documents/PythonFiles/workspace/libSignalDoc/LibSignalDoc/codesrc/LibSignal
+
+# direct output:
+python run.py -a fixedtime
+python run.py -a sotl
+
+# draw training process:
+python run.py -a dqn
+python run.py -a frap
+python run.py -a presslight
+python run.py -a mplight
+
