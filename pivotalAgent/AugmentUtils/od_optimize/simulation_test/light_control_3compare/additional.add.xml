@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-27 14:58:39 by Eclipse SUMO netedit Version 1.16.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="e1_1" name="detector1" lane="1089324756#1_1" pos="9.40" period="3600.00" file="detectorOut.xml"/>
+    <inductionLoop id="e1_2" name="detector2" lane="1089324756#1_0" pos="10.02" period="3600.00" file="detectorOut.xml"/>
+    <inductionLoop id="e2_1" name="conflict1" lane="772044499_1" pos="2.37" period="3600.00" file="conflictOut.xml"/>
+    <inductionLoop id="e2_2" name="conflict2" lane="772044499_0" pos="1.68" period="3600.00" file="conflictOut.xml"/>
+</additional>
