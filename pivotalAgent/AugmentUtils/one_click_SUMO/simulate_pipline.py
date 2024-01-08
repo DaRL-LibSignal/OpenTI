@@ -27,8 +27,7 @@ def click_simulate(path=""):
     os.makedirs(save_path)
 
     working_dir = "./autoSimuOutput/" + curr_time + "/"
-    CONFIG = yaml.load(open('../../Configs/path.yaml'), Loader=yaml.FullLoader)
-    sumo_path = CONFIG['SUMO_PATH']
+    sumo_path =  yaml.load(open('../../Configs/path.yaml'), Loader=yaml.FullLoader)['SUMO_PATH']
 
     # bash commands
     commands = f"""

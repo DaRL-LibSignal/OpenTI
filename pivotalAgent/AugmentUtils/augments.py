@@ -633,16 +633,31 @@ class oneClickSUMO:
             import os
             current_path = os.getcwd()
 
-            print("target:")
-            print(target)
-            print("self.pipline_path")
-            print(self.pipline_path)
-            print("current path:")
-            print(current_path)
-
             if osm_file_path == None: return "Your final answer should include this sentence without changing anything: You are expected to input your osm file path (absolute path) to run this simulation!"
             subprocess.run(["python3", current_path+ self.pipline_path + "simulate_pipline.py", "-f", target], capture_output=True, text=True, cwd=current_path+ self.pipline_path)
             return "Successfully executed SUMO simulation with random sampled demand information."
+        
+        except Exception as e:
+            return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
+        
+
+
+class odMatrixTest:
+    def __init__(self) -> None:
+        pass
+
+    @func_prompt(name="ODMatrixTest", description="""
+    This is the tool used to conduct an OD(Origin-Destination) test in Sedona, AZ, USA. If user asked about running the demand optimization in example file using the Genetic Algorithm, please consider this approach.
+    The output will tell you whether you have finished this command successfully.
+    """)
+
+    def embody(self, target: str):
+        try:
+            import os
+            current_path = os.getcwd() + "/pivotalAgent/AugmentUtils/od_optimize/simulation_test/"
+
+            subprocess.run(["python3", current_path + "pickout_test_direct.py"], capture_output=True, text=True, cwd=current_path)
+            return "The simulation is running in backend process, please wait (estimate time: 8min...)"
         
         except Exception as e:
             return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"

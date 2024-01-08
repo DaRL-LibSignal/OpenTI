@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-07 17:18:14 by Eclipse SUMO libsumo Version 1.16.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/libsumoConfiguration.xsd">
+
+    <input>
+        <net-file value="./pivotalAgent/AugmentUtils/od_optimize/simulation_test/light_control_3compare/map.net_nolight.xml"/>
+        <route-files value="./pivotalAgent/AugmentUtils/od_optimize/simulation_test/light_control_3compare/map.rou.xml"/>
+        <additional-files value="./pivotalAgent/AugmentUtils/od_optimize/simulation_test/light_control_3compare/additional.add.xml,./pivotalAgent/AugmentUtils/od_optimize/simulation_test/light_control_3compare/taz.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="57600"/>
+    </time>
+
+</configuration>
