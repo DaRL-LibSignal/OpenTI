@@ -26,7 +26,24 @@ Please execute the following command to install and configure our environment.
 
 ```Powershell
 clone https://github.com/DaRL-LibSignal/OpenTI.git
+cd OpenTI
+pip install -r requirements.txt
+sudo apt-get install python3-tk
 ```
+
+## Configuration
+
+### LLM Configuration
+
+First, you need to configure OpenAI-Key. Please create a `./config.yaml` file in the root directory and add the following content to the file (please modify the content to your own settings):
+
+```yaml
+OPENAI_API_TYPE: 'openai' #'azure'  OR 'openai'
+# for 'openai'
+OPENAI_KEY: '' # your openai key
+```
+
+Here we recommend using ChatGPT-3.5 to run as LLM. If you want to use your own LLM, please refer to [LangChain-Large Language Models](https://python.langchain.com/docs/modules/model_io/models/) to define Your own LLM. In this case, please modify the following sections in `./DataProcessBot.py` and `./SimulationProcessBot.py` to configure your own LLM.
 
 
 ## Simulator environment configuration
@@ -48,6 +65,7 @@ pip install .
 ```
 To test configuration:
 ```
+python3
 import cityflow
 env = cityflow.Engine
 ```
@@ -59,7 +77,7 @@ env = cityflow.Engine
 To install SUMO environment, please follow the instructions on [SUMO Doc](https://epics-sumo.sourceforge.io/sumo-install.html#)
 
 ```
-sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+sudo apt-get install cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
 
 git clone --recursive https://github.com/eclipse/sumo
 
@@ -68,19 +86,29 @@ mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
 cmake ../..
 make -j$(nproc)
 ```
+If you cannot make the directory sumo/build/cmake-build, you could try the command below
+```
+cd sumo
+mkdir build
+cd build
+mkdir cmake-build
+cd cmake-build
+```
+
 To test installation:
 ```
-cd ~/DaRL/sumo/bin
+cd ~/sumo/bin
 ./sumo
 ```
 
 To add SUMO and traci model into the system PATH, execute the code below:
 ```
-export SUMO_HOME=~/DaRL/sumo
+export SUMO_HOME=~/sumo
 export PYTHONPATH="$SUMO_HOME/tools:$PYTHONPATH"
 ```
 To test configuration:
 ```
+python3
 import libsumo
 import traci
 ```
@@ -89,13 +117,14 @@ import traci
 ### LibSignal Environment
 <br />
 
-To install LibSignal environment, please follow the instructions on [LibSignal Doc](https://darl-libsignal.github.io/#download)
+To install LibSignal environment, please follow the instructions
 
 ```
-git clone https://github.com/DaRL-LibSignal/LibSignal.git
 cd LibSignal
 pip install -r requirements.txt
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+pip install cmake
+pip install lmdb
 
 ```
 
@@ -107,7 +136,8 @@ pip3 install torch torchvision torchaudio --extra-index-url https://download.pyt
 If you install all the requirments below, you can run Open-TI now.
 
 ```
-cd Open-TI
+cd OpenTI
+cd pivotalAgent
 python3 executor.py
 ```
 
@@ -116,12 +146,10 @@ python3 executor.py
 ## Citation
 
 ```
-@misc{,
-      title={Open-TI: Open Traffic Intelligence with Augmented Language Model}, 
-      author={Longchao Da and Kuanru Liou and Tiejin Chen and Xuesong Zhou and Xiangyong Luo and Yezhou Yang and Hua Wei},
-      year={2023},
-      eprint={},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@article{da2023open,
+  title={Open-TI: Open Traffic Intelligence with Augmented Language Model},
+  author={Da, Longchao and Liou, Kuanru and Chen, Tiejin and Zhou, Xuesong and Luo, Xiangyong and Yang, Yezhou and Wei, Hua},
+  journal={arXiv preprint arXiv:2401.00211},
+  year={2023}
 }
 ```
