@@ -146,12 +146,10 @@ python3 executor.py
 ## Citation
 
 ```
-@misc{,
-      title={Open-TI: Open Traffic Intelligence with Augmented Language Model}, 
-      author={Longchao Da and Kuanru Liou and Tiejin Chen and Xuesong Zhou and Xiangyong Luo and Yezhou Yang and Hua Wei},
-      year={2023},
-      eprint={},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@article{da2023open,
+  title={Open-TI: Open Traffic Intelligence with Augmented Language Model},
+  author={Da, Longchao and Liou, Kuanru and Chen, Tiejin and Zhou, Xuesong and Luo, Xiangyong and Yang, Yezhou and Wei, Hua},
+  journal={arXiv preprint arXiv:2401.00211},
+  year={2023}
 }
 ```
