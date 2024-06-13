@@ -2,7 +2,7 @@
 
 
 [![Static Badge](https://img.shields.io/badge/Readme-English-blue)](https://github.com/DaRL-LibSignal/OpenTI/tree/main)
-[![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://arxiv.org/abs/2309.06719)
+[![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://link.springer.com/article/10.1007/s13042-024-02190-8)
 [![Static Badge](https://img.shields.io/badge/Documentation-Read-blue?logo=read-the-docs)](https://rubyliou1023.github.io/OpenTI_WEB/)
 [![Watch Video](https://img.shields.io/badge/Watch_Video-YouTube-red?logo=youtube)](https://youtu.be/pZ4-5PXz9Xs)
 
