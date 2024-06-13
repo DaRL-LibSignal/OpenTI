@@ -41,14 +41,15 @@ First, you need to configure OpenAI-Key. Please create a `./config.yaml` file in
 OPENAI_API_TYPE: 'openai' #'azure'  OR 'openai'
 # for 'openai'
 OPENAI_KEY: '' # your openai key
+Google_Map: '' # your googleAPI key
 ```
 
-Here we recommend using ChatGPT-3.5 to run as LLM. If you want to use your own LLM, please refer to [LangChain-Large Language Models](https://python.langchain.com/docs/modules/model_io/models/) to define Your own LLM. In this case, please modify the following sections in `./DataProcessBot.py` and `./SimulationProcessBot.py` to configure your own LLM.
+Here we recommend using at least ChatGPT-3.5-turbo to run as LLM. If you want to use your own LLM, please refer to [LangChain-Large Language Models](https://python.langchain.com/docs/modules/model_io/models/) to define Your own LLM. In this case, please modify the following sections in `./DataProcessBot.py` and `./SimulationProcessBot.py` to configure your own LLM.
 
 
 ## Simulator environment configuration
 <br />
-Though CityFlow, SUMO,  and LibSignal are stable under Windows and Linux systems, we still recommend users work under the Linux system.<br><br>
+Though CityFlow, SUMO, and LibSignal are stable under Windows and Linux systems, we still recommend users work under the Linux system.<br><br>
 
 ### CityFlow Environment
 <br />
