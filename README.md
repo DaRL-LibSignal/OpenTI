@@ -143,13 +143,15 @@ python3 executor.py
 
 <br>
 
-## Citation
+## If you find this project helpful, please use below Citation
 
 ```
-@article{da2023open,
-  title={Open-TI: Open Traffic Intelligence with Augmented Language Model},
+@article{da2024open,
+  title={Open-ti: Open traffic intelligence with augmented language model},
   author={Da, Longchao and Liou, Kuanru and Chen, Tiejin and Zhou, Xuesong and Luo, Xiangyong and Yang, Yezhou and Wei, Hua},
-  journal={arXiv preprint arXiv:2401.00211},
-  year={2023}
+  journal={International Journal of Machine Learning and Cybernetics},
+  pages={1--26},
+  year={2024},
+  publisher={Springer}
 }
 ```
