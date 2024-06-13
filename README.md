@@ -1,5 +1,11 @@
 # Open-TI: Open Traffic Intelligence with Augmented Language Model
 
+
+[![Static Badge](https://img.shields.io/badge/Readme-English-blue)](https://github.com/DaRL-LibSignal/OpenTI/tree/main)
+[![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://arxiv.org/abs/2309.06719)
+[![Static Badge](https://img.shields.io/badge/Documentation-Read-blue?logo=read-the-docs)](https://rubyliou1023.github.io/OpenTI_WEB/)
+[![Watch Video](https://img.shields.io/badge/Watch_Video-YouTube-red?logo=youtube)](https://youtu.be/pZ4-5PXz9Xs)
+
 ## Introduction
 
 Open-TI is a revolutionary traffic intelligence model that bridges the industry-academic gap in intelligent transportation. It leverages large language models to execute complex traffic analysis tasks, making it the first to seamlessly integrate external packages based on conversations. Beyond analysis, Open-TI can train traffic signal control policies, explore demand optimizations, and communicate with control agents like ChatZero for efficient task execution. With a formal structure and open-ended design, Open-TI invites community-driven enhancements, emphasizing its pivotal role in advancing intelligent transportation systems.
