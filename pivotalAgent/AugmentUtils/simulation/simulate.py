@@ -1,7 +1,7 @@
 from DLSim import DLSim
 import yaml
 
-config_path = "./pivotalAgent/Configs/path.yaml"
+config_path = "/home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Configs/path.yaml"
 
 with open(config_path, 'r') as file:
     work_dic = yaml.safe_load(file)["DLSim"]["work_dic"]

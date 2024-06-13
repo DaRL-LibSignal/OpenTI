@@ -1,10 +1,19 @@
-Config_path: ./Configs/path.yaml
+Config_path: "./Configs/path.yaml"
 LibSignal:
-    root_path: ./LibSignal/
-    log_example: ./LibSignal/data/output_data/tsc/cityflow_dqn/cityflow1x1/0/logger/2023_10_10-13_00_07_DTL.log
-    tsc_root: ./LibSignal/data/output_data/tsc/
+    root_path: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/support_libsignal/LibSignal/LibSignal/
+    log_example: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/support_libsignal/LibSignal/LibSignal/data/output_data/tsc/cityflow_dqn/cityflow1x1/0/logger/2023_10_10-13_00_07_DTL.log
+    tsc_root: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/support_libsignal/LibSignal/LibSignal/data/output_data/tsc/
+    tsc_base: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/support_libsignal/LibSignal/LibSignal/configs/tsc/base.yml
 Demand:
     example: ./fig/demand.png
 DLSim:
     work_dic: "./AugmentUtils/simulation/simulate"
+    simulate_base: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/AugmentUtils/simulation/simulate/
 SUMO_PATH: "/home/local/ASURITE/longchao/Desktop/project/sumo" # your sumo path, x/x/x/sumo
+SUMO_PIPLINE: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/AugmentUtils/one_click_SUMO/simulate_pipline.py
+
+showMap:
+    targetMapPng: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Data/maps/target_map.png
+    htmlPath : /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Data/maps/target_map.html
+OSM_BASE: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Data/download/OSM/
+FIlter_Store_Base: /home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Data/netfilter/output/

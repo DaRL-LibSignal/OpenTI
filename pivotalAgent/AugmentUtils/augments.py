@@ -25,13 +25,17 @@ from PIL import Image
 import os
 import math
 import matplotlib.pyplot as plt
+import json
 
 matplotlib.use('TkAgg')
 
-config_path = "./pivotalAgent/Configs/path.yaml"
-
+config_path = "/home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Configs/path.yaml"
+api_config = "/home/local/ASURITE/longchao/Desktop/project/LLM4Traffic/OpenTI/pivotalAgent/Configs/config.yaml"
 with open(config_path, 'r') as file:
     tsc_root = yaml.safe_load(file)["LibSignal"]["tsc_root"]
+
+with open(config_path, 'r') as file:
+    filter_store_base = yaml.safe_load(file)["FIlter_Store_Base"]
 
 def func_prompt(name, description):
     def decorator(func):
@@ -40,9 +44,6 @@ def func_prompt(name, description):
         return func
 
     return decorator
-
-import json
-
 
 class ask4Area:
     def __init__(self) -> None:
@@ -56,33 +57,48 @@ class ask4Area:
              """)
 
     def embody(self, target: str) -> str:
-        # Example input string
-        def get_bounding_box(address):
-        # URL of the Nominatim API
-            nominatim_url = "https://nominatim.openstreetmap.org/search"
 
-            # Parameters for the API request
-            params = {
-                'q': address,  # Query with the provided address
-                'format': 'json',  # Response format
-                'limit': 1  # Limit to the top result
+        def get_bounding_box(query):
+            # URL for the API request with the provided query
+            url = f"https://nominatim.openstreetmap.org/search.php?q={query}&polygon_geojson=1&format=jsonv2"
+
+            # Headers to simulate the request
+            headers = {
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br, zstd',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Referer': 'https://nominatim.openstreetmap.org/ui/search.html?q=arizona+state+university+',
+                'Sec-Ch-Ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+                'Sec-Ch-Ua-Mobile': '?0',
+                'Sec-Ch-Ua-Platform': '"Linux"',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-origin',
+                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
             }
 
-            # Sending a request to the Nominatim API
-            response = requests.get(nominatim_url, params=params)
+            try:
+                # Make the GET request with headers
+                response = requests.get(url, headers=headers)
 
-            if response.status_code == 200:
-                data = response.json()
-                if data:
-                    # Extracting bounding box
-                    bounding_box = data[0]['boundingbox']
-                    lat_min, lat_max, long_min, long_max= bounding_box
-                    return [float(long_min), float(lat_min), float(long_max), float(lat_max)]
-                   
+                if response.status_code == 200:
+                    data = response.json()
+
+                    # Assuming we need the bounding box information from the first result
+                    if len(data) > 0:
+                        bounding_box = data[0].get('boundingbox', [])
+                        if bounding_box:
+                            return bounding_box
+                        else:
+                            print("Bounding box not found in the response.")
+                    else:
+                        print("No results found in the response.")
                 else:
-                    return "No data found for this address."
-            else:
-                return "Failed to retrieve data."
+                    print(f"Failed to get a response. Status code: {response.status_code}")
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+            return None
         
         location = get_bounding_box(target)
 
@@ -146,11 +162,9 @@ class GoogleMapDownloader:
 
                     im = Image.open(current_tile)
                     map_img.paste(im, (x * 256, y * 256))
-
                     os.remove(current_tile)
 
             return map_img 
-
 
 class GoogleMapsLayers:
         ROADMAP = "v"
@@ -224,12 +238,29 @@ class showMap:
              The output will tell you whether you have finished this command successfully.
              """)
     def embody(self, target: str) -> str:
+        
+        with open(api_config, 'r') as file:
+            google_api = yaml.safe_load(file)["Google_Map"]
+        api_key = google_api
         target = eval(target)
-        min_long,min_lat,max_long,max_lat = target[0],target[1],target[2],target[3]
-        gmd = GoogleMapDownloader(min_long, min_lat, max_long, max_lat, 13, GoogleMapsLayers.ALTERED_ROADMAP)
+        for i in range(len(target)):
+            target[i] = float(target[i])
+
+        min_lat, max_lat, min_long, max_long = target[0],target[1],target[2],target[3]
+        center_lat = (min_lat + max_lat) / 2
+        center_long = (min_long + max_long) / 2
+        center = f'{center_lat},{center_long}'
+
+        zoom = 13  # You might need to adjust this value based on the area covered by your bounding box
+
+        # Define the URL for the Static Map API
+        url = f'https://maps.googleapis.com/maps/api/staticmap?center={center}&zoom={zoom}&size=600x400&key={api_key}'
+
+        # Make the request and get the response
+        response = requests.get(url)
 
         def create_and_show_map(bounding_box):
-            min_lon,min_lat,max_lon,max_lat = bounding_box[0], bounding_box[1],bounding_box[2],bounding_box[3]
+            min_lat, max_lat, min_lon, max_lon = bounding_box[0], bounding_box[1],bounding_box[2],bounding_box[3]
             # Center of the map
             center_lat = (min_lat + max_lat) / 2
             center_lon = (min_lon + max_lon) / 2
@@ -247,21 +278,25 @@ class showMap:
             ).add_to(map_obj)
 
             return map_obj
+        with open(config_path, 'r') as file:
+            data = yaml.safe_load(file)
+        target_map_png = data['showMap']['targetMapPng']
+        html_path = data['showMap']['htmlPath']
         try:
-            img = gmd.generateImage()
+            response = requests.get(url)
+            if response.status_code == 200:
+                with open(target_map_png, 'wb') as file:
+                    file.write(response.content)
+            else:
+                print(f"Failed to get the map. Status code: {response.status_code}")
         except:
             return "Error for finding the place"
-        else:
-            img.save("Data/maps/target_map.png")
-            print("Create map Successfully")
-        # LLMAgent/simulation/asu_map.png 
-        map = create_and_show_map(target)
-        html_path = "Data/maps/target_map.html"
-        map.save("Data/maps/target_map.html")
 
-        target_map ="./Data/maps/target_map.png"
         
-        return f"You have successfully find the map of: {target}. And your final answer should include this sentence without changing anything: The map area of interested {target} is: `{target_map}`, and dynamic version please check the link above:`{html_path}`."
+        map = create_and_show_map(target)
+        map.save(html_path)
+
+        return f"You have successfully find the map of: {target}. And your final answer should include this sentence without changing anything: The map area of interested {target} is: `{target_map_png}`, and dynamic version please check the link above:`{html_path}`."
 
 class autoDownloadNetwork:
     def __init__(self, base_loc: str) -> None:
@@ -278,19 +313,24 @@ class autoDownloadNetwork:
 
     def embody(self, target: str) -> str:
 
-        try: 
+        # try: 
             print("get the data in download: {}".format(target))
             desired = target.replace(" ", "").split(",")[-1].replace('"', '').replace("[", "").replace("]", "")
             print("desired:"+desired)
-            long_min, lat_min, long_max, lat_max = target.replace("[", "").replace("]", "").strip().replace(" ", "").split(",")[:4]
+            min_long, min_lat, max_long, max_lat = target.replace("[", "").replace("]", "").strip().replace(" ", "").split(",")[:4]
             print("long_min, lat_min, long_max, lat_max")
-            print(long_min, lat_min, long_max, lat_max)
-            url = "https://www.openstreetmap.org/api/0.6/map?bbox={}%2C{}%2C{}%2C{}".format(long_min, lat_min, long_max, lat_max)
+            print(min_lat, max_lat, min_long, max_long)
+            url = "https://www.openstreetmap.org/api/0.6/map?bbox={}%2C{}%2C{}%2C{}".format(min_long, min_lat, max_long, max_lat)
             print("url:")
+            # min_lon,min_lat,max_lon,max_lat.
             print(url)
             response = requests.get(url)
-            if response.status_code == 200:              
-                file_path = self.base_loc+ desired
+
+            with open(config_path, 'r') as file:
+                osm_base = yaml.safe_load(file)["OSM_BASE"]
+            if response.status_code == 200:
+                file_path = osm_base + desired
+                # file_path = self.base_loc+ desired
                 with open(file_path, 'wb') as file:
                     file.write(response.content)
                 if not os.path.exists(file_path):
@@ -302,15 +342,17 @@ class autoDownloadNetwork:
            
             time.sleep(2)
             return f"The requested have successfully downloaded and saved at: {file_path}. And your final answer should include this sentence without changing anything: The file saved location is at: `{file_path}`."
-        except FileNotFoundError as e:
-            return f"The requested cannot be successfully downloaded because your request was too large. Either request a smaller area, or use planet.osm."
+        # except FileNotFoundError as e:
+        #     return f"The requested cannot be successfully downloaded because your request was too large. Either request a smaller area, or use planet.osm."
 
 def extract_filepath(s):
     match = re.search(r'data/.*\.log', s)
     return match.group(0) if match else None
 
 def update_episode_in_base_yaml(episode_value: str) -> None:
-    base_yaml_path = "./LibSignal/LibSignal/configs/tsc/base.yml"  # Replace with the actual path to your base.yml file
+    with open(config_path, 'r') as file:
+        data = yaml.safe_load(file)
+    base_yaml_path = data['LibSignal']['tsc_base']
 
     with open(base_yaml_path, 'r') as file:
         data = yaml.safe_load(file)
@@ -385,21 +427,24 @@ class simulateOnLibSignal:
         with open(config_path, 'r') as file2:
             libsignal_root = yaml.safe_load(file2)["LibSignal"]["root_path"]
 
+        #successful run to here
         print(simulator, algorithm, episode)
-        if simulator == "cityflow":
+        if simulator.lower() == "cityflow":
             if algorithm.lower() in support_algorithms_1:
 
            
                 base_path = libsignal_root
+                print(base_path)
                 
                 # Generate a timestamp for the log file
                 timestamp = datetime.datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
-                
+                print(timestamp)
                 # Define the relative path for the log file
                 log_file_relative_path = "data/output_data/tsc/cityflow_{}/cityflow1x1/0/logger/{}_DTL.log".format(algorithm,timestamp)
-                
-                # Combine the base path and relative path to get the full log file path
+                print(log_file_relative_path)
+                # # Combine the base path and relative path to get the full log file path
                 log_file_path = os.path.join(base_path, log_file_relative_path)
+                print(log_file_path)
                 completed_process = subprocess.run(["python3", base_path+"run.py", "-a", algorithm,"-tt", timestamp], capture_output=True, text=True, cwd=base_path)
                 # Check if the subprocess completed successfully
                 output = completed_process.stdout
@@ -407,12 +452,11 @@ class simulateOnLibSignal:
                 print(output)
                 
                 read_path = log_file_path
+                print(read_path)
 
                 saved_image = painter({'hz1x1': read_path}, ['epoch', 'average travel time', 'rewards','delay'])
                 return f"Your final answer should include this sentence without changing anything: The simulation results are saved at:`{saved_image}` and the log file is saved at:{log_file_path}."
                 
-            
-            
             elif algorithm.lower() in support_algorithms_2:
                 timestamp = datetime.datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
                 
@@ -425,12 +469,11 @@ class simulateOnLibSignal:
                     simulation_result = reader.read()                 
                 return f"Your final answer should include this sentence without changing anything: The simulation results are: {simulation_result}."
         
-
 class filterNetwork:
     def __init__(self, figfolder: str) -> None:
         # base_network: 
         self.figfolder = figfolder
-        self.store_base = "./Data/netfilter/output/"
+        self.store_base = filter_store_base
     
     # The input most likely contains the information related to keywords like: filter network, walk/walkable, bike/bikeable/, railway/railway routes.
     @func_prompt(name='networkFilter',
@@ -442,30 +485,27 @@ class filterNetwork:
              """)
 
     def embody(self, target: str) -> str:
+        # get the target information:
+        print("target:")
+        print(target)
+        target = target.replace("[", "").replace("]", "").replace(" ", "")
+
+        target_path, keyword = target.split(",")
+        time.sleep(0.5)
         try:
-            # get the target information:
-            print("target:")
-            print(target)
-            target = target.replace("[", "").replace("]", "").replace(" ", "")
+            net = og.getNetFromFile(target_path, network_types=keyword)
+        except Exception as e :
+            print("There are some error when filtering")
 
-            target_path, keyword = target.split(",")
-            time.sleep(0.5)
-            try:
-                net = og.getNetFromFile(target_path, network_types=keyword)
-            except Exception as e :
-                print("There are some error when filtering")
+        time_now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
-            time_now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        store_info = self.store_base + time_now + "-" + keyword +".png"
 
-            store_info = self.store_base + time_now + "-" + keyword +".png"
-
-            og.osmnet.visualization.saveFig(network=net, picpath=store_info)
-            if not os.path.exists(store_info):
-                return f"You cannot successfully filter the network."
-            
-            return f"You have successfully filter the network by type: {target} on the target network. And your final answer should include this sentence without changing anything except for translation: The location of interested {target} is kept at: `{store_info}`."
-        except Exception as e:
-                return f"You cannot  filter the nework by type: {target} on the target network."
+        og.osmnet.visualization.saveFig(network=net, picpath=store_info)
+        if not os.path.exists(store_info):
+            return f"You cannot successfully filter the network."
+        
+        return f"You have successfully filter the network by type: {target} on the target network. And your final answer should include this sentence without changing anything except for translation: The location of interested {target} is kept at: `{store_info}`."
 
 class generateDemand:
 
@@ -536,6 +576,12 @@ class generateDemand:
         gd.save_zone_od_dist_table
         gd.save_zone_od_dist_matrix
 
+        try:
+            subprocess.run(['xdg-open', dump_dir], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to open the file: {e}")
+
+
         return f"You have successfully generated the demand files. And your final answer should include this sentence without changing anything except for translation: The generated demand is kept at: {dump_dir}."
 
 
@@ -546,7 +592,7 @@ class simulateOnDLSim:
 
     @func_prompt(name="simulateOnDLSim", description="""
     This tool is used for simulating on the DLSim multi-resolution traffic simulator. 
-    Please consider using this tool when asked to run simulation on DLSim simulator given a demand path.
+    Please consider using this tool when asked to run simulation on DLSim simulator given a demand path. Please try to provide log info in bullet list or raw data, even though it is a large file.
     """)
 
     def embody(self, target: str) -> str:
@@ -558,8 +604,9 @@ class simulateOnDLSim:
             print(e)
         time_now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
-        base_path = "./AugmentUtils/simulation/simulate/"
-
+        with open(config_path, 'r') as file:
+            base_path = yaml.safe_load(file)["DLSim"]["simulate_base"]
+            
         save_to = base_path + time_now + "-log.txt"
 
         log_file = base_path + "log.txt"
@@ -574,7 +621,13 @@ class simulateOnDLSim:
         print("output:")
         print(output)
 
-        return f"You have successfully simulated on DLSim. And your final answer should include this sentence without changing anything: The simulation process and logs are saved below: `{save_to}`."
+        try:
+            subprocess.run(['xdg-open', save_to], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to open the file: {e}")
+
+        return f"You have successfully simulated on DLSim. And your final answer should include this sentence without changing anything: The simulation process and logs are saved below: `{save_to}`, the key steps as: {output}."
+        
     
 
 class visualizeDemand:
@@ -628,17 +681,28 @@ class oneClickSUMO:
     """)
 
     def embody(self, target: str):
-        try:
+        # try:
             osm_file_path = target
             import os
             current_path = os.getcwd()
+            print(os.getcwd())
+            print(self.pipline_path)
 
             if osm_file_path == None: return "Your final answer should include this sentence without changing anything: You are expected to input your osm file path (absolute path) to run this simulation!"
-            subprocess.run(["python3", current_path+ self.pipline_path + "simulate_pipline.py", "-f", target], capture_output=True, text=True, cwd=current_path+ self.pipline_path)
+            # subprocess.run(["python3", current_path+ self.pipline_path + "simulate_pipline.py", "-f", target], capture_output=True, text=True, cwd=current_path+ self.pipline_path)
+            print("target:")
+            print(target)
+            target = target.replace("`", "")
+            print(target)
+            # file_name = os.path.basename(target)
+            with open(config_path, 'r') as file:
+                sumo_pipline = yaml.safe_load(file)["SUMO_PIPLINE"]
+            subprocess.run(["python3", sumo_pipline, "-f", target], capture_output=True, text=True, cwd=current_path+ self.pipline_path)
+
             return "Successfully executed SUMO simulation with random sampled demand information."
         
-        except Exception as e:
-            return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
+        # except Exception as e:
+            # return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
         
 
 
@@ -647,7 +711,7 @@ class odMatrixTest:
         pass
 
     @func_prompt(name="ODMatrixTest", description="""
-    This is the tool used to conduct an OD(Origin-Destination) test in Sedona, AZ, USA. If user asked about running the demand optimization in example file using the Genetic Algorithm, please consider this approach.
+    This is the tool used to conduct an OD test (Origin-Destination Test). If user asked about running the OD test, or origin-destination matrix optimization, please consider this approach.
     The output will tell you whether you have finished this command successfully.
     """)
 
@@ -659,6 +723,76 @@ class odMatrixTest:
             subprocess.run(["python3", current_path + "pickout_test_direct.py"], capture_output=True, text=True, cwd=current_path)
             return "The simulation is running in backend process, please wait (estimate time: 8min...)"
         
+        except Exception as e:
+            return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
+
+import pandas as pd
+
+def vialize_od_results(file_path):
+
+    df = pd.read_csv(file_path, na_values='', keep_default_na=False).fillna(0)
+
+    volume = df['volume'].tolist()
+    obs_count = df['obs_count'].tolist()
+
+
+    len_vol = len(volume)
+    len_obs = len(obs_count)
+
+    if len_vol == len_obs:
+        for i in range(len_vol):
+            flag = 0
+            if volume[i] == 0:
+                flag = 1
+            if obs_count[i] == 0:
+                flag = 1
+            if flag == 1:
+                volume[i] = 0
+                obs_count[i] = 0
+
+
+
+    # combined = [0 if v == 0 or o == 0 else 1 for v, o in zip(volume, obs_count)]
+
+    #  plot the bar chart
+    indexes = range(len(volume))
+
+    # Set up the matplotlib figure and axes
+    fig, ax = plt.subplots()
+
+    # Add bars for 'volume' and 'obs_count'. The indexes are shifted for each bar for clarity.
+    ax.bar([i - 0.2 for i in indexes], volume, width=0.4, label='Ground Truth Volume', align='center')
+    ax.bar([i + 0.2 for i in indexes], obs_count, width=0.4, label='OD Matrix Count', align='center')
+
+    # Add bars for 'combined' list to reflect positions with 0 in either 'volume' or 'obs_count'
+    # ax.bar(indexes, combined, width=0.4, label='Combined', color='r', alpha=0.5, align='center')
+
+    # Labeling
+    ax.set_xlabel('Share Index')
+    ax.set_ylabel('Values')
+    ax.set_title('Volume and Obs Count Comparison')
+    ax.legend()
+
+    # Show the plot
+    plt.show()
+
+
+class visualizeODResult:
+    def __init__(self) -> None:
+        pass
+
+    @func_prompt(name="visualizeODResult", description="""
+    This is the tool used to visualize the OD matrix estimation results from DTALite simulator, If user ask about visualize the OD results of specific file path of DTALite execution, you should consider using this tool.
+    The output will tell you whether you have finished this command successfully.              
+    """)
+
+    def embody(self, target: str):
+        try:
+            if os.path.exists(target):
+                vialize_od_results(target)
+            else:
+                return "There is no such a file after execution of DTALite, please check again."
+
         except Exception as e:
             return "Your final answer should include this sentence without changing anything: The execution happened with error, please examine the path or format, thank you!"
         

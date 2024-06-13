@@ -1,6 +1,7 @@
 ./support_libsignal/*
 ./pivotalAgent/Data/*
 ./pivotalAgent/fig/*
+./pivotalAgent/AugmentUtils/od_optimize/simulation_test/*
 *.git
 *.DS_Store
 *Data
