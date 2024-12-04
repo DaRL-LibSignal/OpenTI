@@ -2,7 +2,7 @@
 
 
 [![Static Badge](https://img.shields.io/badge/Readme-English-blue)](https://github.com/DaRL-LibSignal/OpenTI/tree/main)
-[![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://link.springer.com/article/10.1007/s13042-024-02190-8)
+[![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://rdcu.be/dHu0b)
 [![Static Badge](https://img.shields.io/badge/Documentation-Read-blue?logo=read-the-docs)](https://rubyliou1023.github.io/OpenTI_WEB/)
 [![Watch Video](https://img.shields.io/badge/Watch_Video-YouTube-red?logo=youtube)](https://youtu.be/pZ4-5PXz9Xs)
 
@@ -153,12 +153,20 @@ python3 executor.py
 ## If you find this project helpful, please use below Citation
 
 ```
+
 @article{da2024open,
-  title={Open-ti: Open traffic intelligence with augmented language model},
-  author={Da, Longchao and Liou, Kuanru and Chen, Tiejin and Zhou, Xuesong and Luo, Xiangyong and Yang, Yezhou and Wei, Hua},
-  journal={International Journal of Machine Learning and Cybernetics},
-  pages={1--26},
-  year={2024},
-  publisher={Springer}
+	title = {Open-TI: Open Traffic Intelligence with Augmented Language Model},
+	author = {Da, Longchao and Liou, Kuanru and Chen, Tiejin and Zhou, Xuesong and Luo, Xiangyong and Yang, Yezhou and Wei, Hua},
+	date = {2024/10/01},
+	doi = {10.1007/s13042-024-02190-8},
+	id = {Da2024},
+	isbn = {1868-808X},
+	journal = {International Journal of Machine Learning and Cybernetics},
+	number = {10},
+	pages = {4761--4786},
+	url = {https://doi.org/10.1007/s13042-024-02190-8},
+	volume = {15},
+	year = {2024}
 }
+
 ```
