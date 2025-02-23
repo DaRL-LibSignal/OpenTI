@@ -1,0 +1,16 @@
+{
+    "paths": {
+      "exe_path": "data/DTALite.exe",
+      "data_path": "data",
+      "working_dir": "pipeline",
+      "link_performance": "data/link_performance.csv",
+      "link_perform_odlink": "data/link_performance_odlink_delta2.csv",
+      "initial_demand_xlsm": "data/demand_calibrate.xlsm"
+    },
+    "hyperparams": {
+      "num_iterations": 5,
+      "max_global_iterations": 10,
+      "max_fail_passes": 3
+    }
+  }
+  
