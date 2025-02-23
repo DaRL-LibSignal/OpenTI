@@ -11,6 +11,18 @@
 Open-TI is a revolutionary traffic intelligence model that bridges the industry-academic gap in intelligent transportation. It leverages large language models to execute complex traffic analysis tasks, making it the first to seamlessly integrate external packages based on conversations. Beyond analysis, Open-TI can train traffic signal control policies, explore demand optimizations, and communicate with control agents like ChatZero for efficient task execution. With a formal structure and open-ended design, Open-TI invites community-driven enhancements, emphasizing its pivotal role in advancing intelligent transportation systems.
 
 
+## O-D matrix Calibration
+```
+🚀 🚀 🚀
+Just now! We released a dataset used for O-D Matrix Calibrations task. Please find in path: `OpenTI/llm_od/`
+And we also included the preliminary exploration on using LLMs to achieve the O-D calibration task. The relevant technical report will come soon! Please stay tuned!
+
+For details, please read: 
+`OpenTI/llm_od/README.md`
+
+```
+
+
 ## The overview of the Open-TI functionalities
 ![overview](./assets/Overview.png)
 
