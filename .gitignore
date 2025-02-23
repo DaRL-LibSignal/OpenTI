@@ -5,6 +5,7 @@
 *.git
 *.DS_Store
 *Data
+!llm_od/data/
 *log
 # *.png
 
