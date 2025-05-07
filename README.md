@@ -4,7 +4,7 @@
 [![Static Badge](https://img.shields.io/badge/Readme-English-blue)](https://github.com/DaRL-LibSignal/OpenTI/tree/main)
 [![Static Badge](https://img.shields.io/badge/Paper-Springer(IJMLC)-red)](https://rdcu.be/dHu0b)
 [![Static Badge](https://img.shields.io/badge/Documentation-Read-blue?logo=read-the-docs)](https://rubyliou1023.github.io/OpenTI_WEB/)
-[![Watch Video](https://img.shields.io/badge/Watch_Video-YouTube-red?logo=youtube)](https://youtu.be/pZ4-5PXz9Xs)
+[![Watch Video](https://img.shields.io/badge/Watch_Video-YouTube-red?logo=youtube)](https://www.youtube.com/QOYWah7--nA)
 
 ## Introduction
 
